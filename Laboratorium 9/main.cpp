@@ -12,6 +12,7 @@ public:
     Macierz2D(float);
     Macierz2D(float**);
     Macierz2D(const Macierz2D&);
+    Macierz2D(std::initializer_list<float>);
     static int get_rozmiar() ;
     float getField(int, int) const;
     void setField(int, int, float);
@@ -51,6 +52,17 @@ Macierz2D::Macierz2D(float x) : Macierz2D() {
 
 Macierz2D::Macierz2D(float **m_dane)  {
     this->m_dane = m_dane;
+}
+
+Macierz2D::Macierz2D(std::initializer_list<float> list) : Macierz2D() {
+    int i = 0, j = 0;
+    for (float n : list) {
+        m_dane[i][j] = n;
+        if(j == 2)
+            i++;
+        j = (j + 1) % 3;
+    }
+
 }
 
 int Macierz2D::get_rozmiar() {
@@ -241,7 +253,6 @@ Macierz2D::~Macierz2D() {
     m_dane = NULL;
 }
 
-
 Macierz2D macierzJednostkowa() {
     Macierz2D macierz;
     int rozmiar = macierz.get_rozmiar();
@@ -314,7 +325,5 @@ int main() {
     std::cout << macierze[0].getField(2, 0) << std::setw(5) << macierze[0].getField(2, 1) << std::setw(5) << macierze[0].getField(2, 2)
     << std::setw(10) << macierze[1].getField(2, 0) << std::setw(5) << macierze[1].getField(2, 1) << std::setw(5) << macierze[1].getField(2, 2)
     << std::setw(10) << macierz_iloczyn.getField(2, 0) << std::setw(5) << macierz_iloczyn.getField(2, 1) << std::setw(5) << macierz_iloczyn.getField(2, 2);
-
-
 
 }
